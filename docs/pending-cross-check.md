@@ -1,5 +1,5 @@
 ---
-last_cross_check: 02b2488
+last_cross_check: 4369dbd
 ---
 
 # Pending cross-check
@@ -12,4 +12,3 @@ A cross-check verifies every affected note against the code, fixes what is wrong
 
 ## Entries
 
-- 2026-11-15 [[obsidian]], SKILL.md "Link types": unresolved. Research 01 says core Obsidian indexes frontmatter links for backlinks and Bases; the owner states they do not resolve without a plugin. Needs a controlled test in the app.
