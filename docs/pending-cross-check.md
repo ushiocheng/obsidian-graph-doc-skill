@@ -1,5 +1,5 @@
 ---
-last_cross_check: 88e4d1b
+last_cross_check: 02b2488
 ---
 
 # Pending cross-check
@@ -12,4 +12,4 @@ A cross-check verifies every affected note against the code, fixes what is wrong
 
 ## Entries
 
-- 2026-11-15 whole vault: no cross-check has been run yet; `last_cross_check` is only the commit the ledger was introduced after.
+- 2026-11-15 [[obsidian]], SKILL.md "Link types": unresolved. Research 01 says core Obsidian indexes frontmatter links for backlinks and Bases; the owner states they do not resolve without a plugin. Needs a controlled test in the app.
