@@ -3,6 +3,7 @@ type: data-model
 title: Note format
 description: The frontmatter keys, note types, link types and naming rules every vault note follows.
 aliases: [frontmatter schema, link types]
+reviewed: 2026-11-15
 sources:
   - skills/obsidian-graph-doc/SKILL.md
   - skills/obsidian-graph-doc/scripts/validate.py
