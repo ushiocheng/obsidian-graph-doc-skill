@@ -8,7 +8,7 @@ about:
 
 # Keep the skill to one SKILL.md plus small helpers
 
-**Status:** accepted, 2026-11-15, by the project owner.
+**Status:** accepted, 2026-11-15, by the project owner. The source is the design conversation that day; it is not recorded elsewhere in the repo.
 
 ## Context
 
@@ -22,6 +22,11 @@ Recorded from the owner's answers:
 - `init` and `validate` live in the skill. Updating is opt-in, by adding an instruction to the target project's `CLAUDE.md`.
 - "This should be pretty much a simple skill.md maybe with a few template file or python snippets."
 - Wikilinks everywhere, including note bodies.
+
+## Later changes
+
+- 2026-11-15, same day: the owner added a third mode, `cross-check`, and the pending ledger. The reasoning given: mistakes can and will be made, so what matters is to record drift and clean it up later, usually before a deploy. It stays within this decision: it is instructions plus a few lines in the existing checker, with no new tooling.
+- The opt-in update block is offered for `CLAUDE.md` or `AGENTS.md`.
 
 ## Consequences
 

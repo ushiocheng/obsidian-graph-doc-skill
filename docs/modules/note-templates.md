@@ -17,7 +17,7 @@ Three Markdown skeletons with placeholder text in angle brackets. They give gene
 | Path | Role |
 |---|---|
 | `skills/obsidian-graph-doc/templates/module.md` | Module note: Key files, Public surface, Dependencies, Related, Invariants and gotchas, Notes |
-| `skills/obsidian-graph-doc/templates/index.md` | Index note: one list section per note type |
+| `skills/obsidian-graph-doc/templates/index.md` | Index note: seven list sections, one per note type other than `index` and `overview`; unused ones are deleted |
 | `skills/obsidian-graph-doc/templates/pending-cross-check.md` | The drift ledger: a `last_cross_check` commit and an Entries list. Not a vault note |
 
 ## Public surface
@@ -26,7 +26,7 @@ Read by an agent following [[skill-instructions]]. Other note types reuse the mo
 
 ## Dependencies
 
-- [[note-format]]: the templates are instances of it and must use only its keys.
+- [[note-format]]: the module and index templates are instances of it and must use only its keys. The ledger template is outside it.
 
 ## Invariants and gotchas
 

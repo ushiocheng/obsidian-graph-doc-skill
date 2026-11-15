@@ -12,7 +12,7 @@ If a note disagrees with the code, the code is right.
 
 ## Modules
 
-- [[skill-instructions]]: The SKILL.md an agent follows to generate or validate a docs vault for a codebase.
+- [[skill-instructions]]: The SKILL.md an agent follows to generate, validate or cross-check a docs vault for a codebase.
 - [[note-templates]]: Starter files for module and index notes that the skill copies and fills in.
 - [[vault-validator]]: Standard-library Python script that checks a vault's frontmatter, links, sources and staleness.
 

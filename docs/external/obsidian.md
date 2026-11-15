@@ -16,12 +16,12 @@ The generated `docs/` folder must open as an Obsidian vault with no plugins inst
 
 ## Constraints it imposes
 
-- Properties cannot be nested, so frontmatter stays flat.
-- Links in frontmatter must be quoted, and are not resolved without a plugin (stated by the project owner; the research could not confirm graph-view behaviour either way). This is why every typed link is repeated in the body.
+- The Properties editor cannot show or edit nested properties, so frontmatter stays flat.
+- Links in frontmatter must be quoted. Whether core Obsidian resolves them is disputed: [[01-obsidian-vault-format]] found documentation that they appear in backlinks and Bases, with only indirect evidence for the graph view, while the project owner, who checked a vault in the app, states they do not resolve without a plugin. Nobody has settled it with a controlled test. The format sidesteps the question by repeating every typed link in the body.
 - The core graph view has no link types: no edge labels or filtering by relation.
 - Two notes with the same file name make a bare wikilink ambiguous.
 - GitHub does not render wikilinks in repository files.
-- Opening a folder as a vault creates `.obsidian/` inside it, including `workspace.json` (personal window and tab state). This repo ignores `docs/.obsidian/` in `.gitignore`, and the skill adds the same entry to repos it documents. It was committed here once by `git add -A` and removed before pushing.
+- Opening a folder as a vault creates `.obsidian/` inside it, including `workspace.json` (personal window and tab state). This repo ignores `docs/.obsidian/` in `.gitignore`, and the skill adds the same entry to repos it documents. A `git add -A` picks the folder up; that happened here once and was caught before pushing (the commit was amended, so history does not show it).
 
 ## Related
 

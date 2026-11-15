@@ -32,7 +32,7 @@ The contract between the skill, the validator and anything built on the vault la
 - Every frontmatter link also appears as a body wikilink, because of how [[obsidian]] treats frontmatter links.
 - Note file names are unique across the vault, ignoring case, so bare wikilinks resolve.
 - `part_of` has at most one target.
-- Staleness is not stored. A note is stale when a file in `sources` has a newer commit than the note file. An earlier `verified_commit` field was dropped because a note cannot hold the hash of the commit that contains it, which forced a follow-up commit on every update.
+- Staleness is not stored. A note is stale when a file in `sources` has changed, committed or not, since the note file's last commit. An earlier `verified_commit` field was dropped (commit `8e66774`) because a note cannot hold the hash of the commit that contains it, which forced a follow-up commit on every update.
 
 ## Dependencies
 

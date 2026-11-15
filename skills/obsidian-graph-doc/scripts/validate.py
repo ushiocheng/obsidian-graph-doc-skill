@@ -69,7 +69,11 @@ def parse_frontmatter(raw):
 
 def git(root, *args):
     """Run git in root; return stripped stdout, or '' if the command fails."""
-    done = subprocess.run(["git", "-C", root] + list(args), capture_output=True, text=True)
+    try:
+        done = subprocess.run(["git", "-C", root] + list(args),
+                              capture_output=True, text=True)
+    except OSError:  # git is not installed
+        return ""
     return done.stdout.strip() if done.returncode == 0 else ""
 
 
@@ -92,10 +96,9 @@ def main(argv):
         print("not a directory: " + vault, file=sys.stderr)
         return 2
 
-    top = subprocess.run(["git", "-C", vault, "rev-parse", "--show-toplevel"],
-                         capture_output=True, text=True)
-    in_git = top.returncode == 0
-    root = top.stdout.strip() if in_git else os.path.dirname(vault)
+    top = git(vault, "rev-parse", "--show-toplevel")
+    in_git = bool(top)
+    root = top if in_git else os.path.dirname(vault)
 
     errors, warnings = [], []
     by_name, by_path, other_files, notes = {}, {}, set(), {}
