@@ -17,6 +17,8 @@ TYPES = {"index", "overview", "module", "interface", "data-model", "flow",
          "external", "concept", "decision"}
 LINK_KEYS = ("part_of", "depends_on", "implements", "about", "supersedes", "see_also")
 NEEDS_SOURCES = {"module", "interface", "data-model", "flow"}
+PENDING_FILE = "pending-cross-check.md"
+PENDING_LIMIT = 20  # warn when more items than this await a cross-check
 WIKILINK = re.compile(r"\[\[([^\]|#]*)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]")
 FENCE = re.compile(r"^(```|~~~).*?^\1[^\n]*$", re.S | re.M)
 INLINE_CODE = re.compile(r"`[^`\n]*`")
@@ -63,6 +65,12 @@ def parse_frontmatter(raw):
         else:
             data[key] = unquote(value)
     return data
+
+
+def git(root, *args):
+    """Run git in root; return stripped stdout, or '' if the command fails."""
+    done = subprocess.run(["git", "-C", root] + list(args), capture_output=True, text=True)
+    return done.stdout.strip() if done.returncode == 0 else ""
 
 
 def as_list(value):
@@ -185,22 +193,19 @@ def main(argv):
         for source in sources:
             if not glob.glob(os.path.join(root, source), recursive=True):
                 err("sources path matches nothing: " + source)
-        commit = str(meta.get("verified_commit") or "")
-        if sources and not commit:
-            err("missing 'verified_commit'")
-        elif commit == "uncommitted":
-            warnings.append("%s: verified_commit is 'uncommitted'" % rel)
-        elif sources and in_git:
-            specs = [":(glob)" + s if any(c in s for c in "*?[") else s for s in sources]
-            diff = subprocess.run(
-                ["git", "-C", root, "diff", "--name-only", commit, "--"] + specs,
-                capture_output=True, text=True)
-            if diff.returncode != 0:
-                err("verified_commit '%s' is not a known commit" % commit)
-            elif diff.stdout.strip():
-                changed = diff.stdout.split()
-                warnings.append("%s: stale, changed since %s: %s"
-                                % (rel, commit, ", ".join(changed)))
+        if sources and in_git:
+            # Stale = a source changed after the note file's own last commit.
+            # A note that is uncommitted or has pending edits is being worked on.
+            note_path = os.path.relpath(os.path.join(vault, rel), root)
+            last = git(root, "log", "-1", "--format=%H", "--", note_path)
+            pending = git(root, "status", "--porcelain", "--", note_path)
+            if last and not pending:
+                specs = [":(glob)" + s if any(c in s for c in "*?[") else s
+                         for s in sources]
+                changed = git(root, "diff", "--name-only", last, "--", *specs).split()
+                if changed:
+                    warnings.append("%s: stale, sources changed after the note's last "
+                                    "commit (%s): %s" % (rel, last[:7], ", ".join(changed)))
 
     kinds = [meta.get("type") for meta, _, _ in notes.values()]
     for single in ("index", "overview"):
@@ -211,11 +216,38 @@ def main(argv):
         if count == 0 and notes[rel][0].get("type") != "index":
             warnings.append("%s: orphan, no note links to it" % rel)
 
+    pending = []
+    ledger = os.path.join(vault, PENDING_FILE)
+    if os.path.isfile(ledger):
+        with open(ledger, encoding="utf-8") as handle:
+            raw, body = split_frontmatter(handle.read())
+        last = str(parse_frontmatter(raw or "").get("last_cross_check") or "")
+        entries = [line[2:].strip() for line in body.partition("## Entries")[2].splitlines()
+                   if line.startswith("- ")]
+        changed = []
+        if not in_git:
+            pass
+        elif not last or not git(root, "rev-parse", "--verify", "--quiet", last + "^{commit}"):
+            warnings.append("%s: last_cross_check '%s' is not a known commit"
+                            % (PENDING_FILE, last))
+        else:
+            inside = os.path.relpath(vault, root).replace(os.sep, "/")
+            specs = ["."] if inside == "." else [".", ":(exclude)" + inside]
+            changed = git(root, "diff", "--name-only", last, "--", *specs).splitlines()
+        pending = ["changed  " + path for path in changed] + ["entry    " + e for e in entries]
+        if len(pending) > PENDING_LIMIT:
+            warnings.append("%d items pending cross-check (limit %d): the docs may have "
+                            "drifted from the code; run a cross-check"
+                            % (len(pending), PENDING_LIMIT))
+
     for message in errors:
         print("ERROR  " + message)
     for message in warnings:
         print("WARN   " + message)
-    print("%d notes, %d errors, %d warnings" % (len(notes), len(errors), len(warnings)))
+    for item in pending:
+        print("PENDING " + item)
+    print("%d notes, %d errors, %d warnings, %d pending cross-check"
+          % (len(notes), len(errors), len(warnings), len(pending)))
     return 1 if errors else 0
 
 

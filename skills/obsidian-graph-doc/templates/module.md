@@ -10,7 +10,6 @@ part_of:
 depends_on:
   - "[[<note>]]"
 see_also: []
-verified_commit: <short HEAD hash>
 ---
 
 # <Human name>

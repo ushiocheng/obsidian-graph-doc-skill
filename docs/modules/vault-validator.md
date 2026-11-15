@@ -7,7 +7,6 @@ sources:
   - skills/obsidian-graph-doc/scripts/validate.py
 depends_on:
   - "[[note-format]]"
-verified_commit: a43459f
 ---
 
 # Vault validator
@@ -38,7 +37,10 @@ It also shells out to `git` (for the repo root and the staleness check) and stil
 - Only files whose frontmatter has a `type` key are checked. Other Markdown files in the vault are ignored but count as link targets.
 - The frontmatter parser handles only scalars and flat lists, not general YAML.
 - Wikilinks inside code fences and inline code are ignored.
-- Staleness is `git diff --name-only <verified_commit> -- <sources>` against the working tree, so uncommitted edits count. A brand-new untracked file matching a glob does not.
-- Stale notes, orphans and `uncommitted` notes are warnings; they do not fail the run.
+- Staleness is derived from git, not from a field: the script finds the note file's last commit and runs `git diff --name-only <that commit> -- <sources>` against the working tree. Uncommitted source edits count. A brand-new untracked file matching a glob does not.
+- A note that is not committed yet, or has pending edits, is never reported stale.
+- Any commit to a note makes it fresh, including a typo fix. The check cannot tell whether the edit addressed the source change.
+- Stale notes and orphans are warnings; they do not fail the run.
+- If `pending-cross-check.md` exists in the vault, the script prints one `PENDING` line per file changed outside the vault since its `last_cross_check` commit and per line under its `## Entries` heading. More than `PENDING_LIMIT` (20) items adds a warning. Untracked new files are not counted.
 
 ## Notes

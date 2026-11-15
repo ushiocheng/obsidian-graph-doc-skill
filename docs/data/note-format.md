@@ -8,7 +8,6 @@ sources:
   - skills/obsidian-graph-doc/scripts/validate.py
 depends_on:
   - "[[obsidian]]"
-verified_commit: a43459f
 ---
 
 # Note format
@@ -23,7 +22,7 @@ The contract between the skill, the validator and anything built on the vault la
 | `title`, `description` | Required. `description` is one sentence and feeds the index |
 | `aliases` | Other names for the unit |
 | `sources` | Repo-root-relative paths or globs the note describes; required for `module`, `interface`, `data-model`, `flow` |
-| `verified_commit` | Short hash the note was last checked at, or `uncommitted` |
+| `reviewed` | Optional date the note was last checked against its sources and left unchanged |
 | `part_of`, `depends_on`, `implements`, `about`, `supersedes`, `see_also` | Typed links, as lists of quoted wikilinks |
 
 ## Invariants
@@ -33,6 +32,7 @@ The contract between the skill, the validator and anything built on the vault la
 - Every frontmatter link also appears as a body wikilink, because of how [[obsidian]] treats frontmatter links.
 - Note file names are unique across the vault, ignoring case, so bare wikilinks resolve.
 - `part_of` has at most one target.
+- Staleness is not stored. A note is stale when a file in `sources` has a newer commit than the note file. An earlier `verified_commit` field was dropped because a note cannot hold the hash of the commit that contains it, which forced a follow-up commit on every update.
 
 ## Dependencies
 

@@ -6,12 +6,11 @@ sources:
   - skills/obsidian-graph-doc/templates/*.md
 depends_on:
   - "[[note-format]]"
-verified_commit: a43459f
 ---
 
 # Note templates
 
-Two Markdown skeletons with placeholder text in angle brackets. They give generated notes a consistent section order. They are not a schema: nothing checks that a note keeps the template's sections.
+Three Markdown skeletons with placeholder text in angle brackets. They give generated notes a consistent section order. They are not a schema: nothing checks that a note keeps the template's sections.
 
 ## Key files
 
@@ -19,6 +18,7 @@ Two Markdown skeletons with placeholder text in angle brackets. They give genera
 |---|---|
 | `skills/obsidian-graph-doc/templates/module.md` | Module note: Key files, Public surface, Dependencies, Related, Invariants and gotchas, Notes |
 | `skills/obsidian-graph-doc/templates/index.md` | Index note: one list section per note type |
+| `skills/obsidian-graph-doc/templates/pending-cross-check.md` | The drift ledger: a `last_cross_check` commit and an Entries list. Not a vault note |
 
 ## Public surface
 
