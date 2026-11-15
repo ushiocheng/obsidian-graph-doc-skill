@@ -34,8 +34,8 @@ The skill's instructions are this one file of prose: an agent loads it and follo
 ## Dependencies
 
 - [[note-format]]: the file states the format every generated note must follow.
-- [[note-templates]]: init is told to start notes from these.
-- [[vault-validator]]: validate runs it, and init runs it as its last step.
+- [[note-templates]]: the Note format section points init at these for notes, and the ledger section at the ledger template.
+- [[vault-validator]]: validate runs it, and init runs it at step 7 of 9, after writing the notes and the ledger and before the report.
 
 ## Related
 

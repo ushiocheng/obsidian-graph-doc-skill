@@ -30,10 +30,12 @@ The contract between the skill, the validator and anything built on the vault la
 
 - Frontmatter is flat: scalars and lists only.
 - Each link is stored on one side. The reverse direction is found by backlinks or search.
-- Every frontmatter link also appears as a body wikilink, because of how [[obsidian]] treats frontmatter links.
+- Every frontmatter link also appears as a body wikilink, because [[obsidian]] does not resolve links written in
+  frontmatter: only body links reach its graph and backlinks.
 - Note file names are unique across the vault, ignoring case, so bare wikilinks resolve.
-- `part_of` has at most one target.
-- Staleness is not stored. A note is stale when a file in `sources` has changed, committed or not, since the note file's last commit. An earlier `verified_commit` field was dropped (commit `8e66774`) because a note cannot hold the hash of the commit that contains it, which forced a follow-up commit on every update.
+- `part_of` has at most one target. `see_also` has at most five, which `SKILL.md` states but the validator does not
+  enforce. No link keys other than the six above are allowed.
+- Staleness is not stored. A note is stale when a file in `sources` has changed, committed or not, since the note file's last commit. An earlier `verified_commit` field was dropped for this (commit `8e66774`): a note cannot hold the hash of the commit that contains it, so every update needed a follow-up commit. The commit message records the change, not that reason.
 
 ## Dependencies
 

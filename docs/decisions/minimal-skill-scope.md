@@ -12,7 +12,7 @@ about:
 
 ## Context
 
-Five research reports proposed a larger design: a bundled dependency extractor in tiers, a committed JSON graph with per-edge provenance, content hashes, generated-region markers, plugin packaging, hooks and evals. See [[02-prior-art]], [[04-information-architecture]] and [[05-extraction-and-graph-tooling]].
+The research proposed a larger design: a bundled dependency extractor in tiers, a committed JSON graph with per-edge provenance, content hashes, generated-region markers, plugin packaging, hooks and evals. See [[05-extraction-and-graph-tooling]], [[04-information-architecture]] and [[03-skill-authoring-and-distribution]]; [[02-prior-art]] supplied the prior art, not the design.
 
 ## Decision
 

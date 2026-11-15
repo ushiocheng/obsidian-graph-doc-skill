@@ -126,7 +126,7 @@ The checker prints every pending item and warns when there are more than 20, bec
 6. **Create the ledger** `docs/pending-cross-check.md` from its template, with `last_cross_check` set to the current short `HEAD` hash (leave it empty if the repo has no commits) and no entries.
 7. **Validate** (next section) and fix every error.
 8. **Report**: note count by type, anything left uncovered, any dependency you suspected but could not confirm.
-9. **Offer the follow-ups** in "Keeping it current" and "Obsidian setup". Do not apply them without the user's yes.
+9. **Offer the follow-ups** in "Keeping it current" and "Obsidian setup". Do not apply them without the user's yes. The one exception is the `docs/.obsidian/` line in `.gitignore`, which init adds itself; see "Obsidian setup".
 
 ## validate
 
@@ -206,4 +206,4 @@ Keep it short and do not import the vault into the instructions file: notes are 
 
 Do not create or modify `docs/.obsidian/`. Tell the user they can open `docs/` as a vault directly, and mention that wikilinks are not clickable when the files are viewed on GitHub.
 
-Obsidian creates `docs/.obsidian/` the moment the folder is opened as a vault, and it includes `workspace.json`, the user's personal window and tab state. A later `git add -A` will pick it up. So during init, add `docs/.obsidian/` to the repo's `.gitignore` (create the file if needed) and say so in the report. If the user wants to share vault settings, ignore only `docs/.obsidian/workspace*.json` instead. Before any commit you make that touches `docs/`, check that nothing under `docs/.obsidian/` is staged unless the user asked for it.
+Obsidian creates `docs/.obsidian/` the moment the folder is opened as a vault, and it includes `workspace.json`, the user's personal window and tab state. A later `git add -A` will pick it up. So during init, add `docs/.obsidian/` to the repo's `.gitignore` (create the file if needed) without waiting for a yes, and say so in the report. If the user wants to share vault settings, ignore only `docs/.obsidian/workspace*.json` instead. Before any commit you make that touches `docs/`, check that nothing under `docs/.obsidian/` is staged unless the user asked for it.
