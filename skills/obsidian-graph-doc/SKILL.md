@@ -150,7 +150,8 @@ To find what depends on a unit, search `docs/` for `[[its-note-name`.
 
 - If a note disagrees with the code, the code is right. Fix the note.
 - When you change files listed under a note's `sources`, update that note in the
-  same change and set its `verified_commit` to the new commit.
+  same change. A commit cannot contain its own hash, so after committing, set the
+  note's `verified_commit` to that commit in a small follow-up commit.
 - When you add, rename or remove a module, add, rename or remove its note and
   update `docs/index.md`.
 ```
@@ -159,4 +160,6 @@ Keep it short and do not import the vault into the instructions file: notes are 
 
 ## Obsidian setup
 
-Do not create or modify `docs/.obsidian/`. Tell the user they can open `docs/` as a vault directly, and suggest adding `docs/.obsidian/` to `.gitignore` unless they want to share their Obsidian settings. Mention that wikilinks are not clickable when the files are viewed on GitHub.
+Do not create or modify `docs/.obsidian/`. Tell the user they can open `docs/` as a vault directly, and mention that wikilinks are not clickable when the files are viewed on GitHub.
+
+Obsidian creates `docs/.obsidian/` the moment the folder is opened as a vault, and it includes `workspace.json`, the user's personal window and tab state. A later `git add -A` will pick it up. So during init, add `docs/.obsidian/` to the repo's `.gitignore` (create the file if needed) and say so in the report. If the user wants to share vault settings, ignore only `docs/.obsidian/workspace*.json` instead. Before any commit you make that touches `docs/`, check that nothing under `docs/.obsidian/` is staged unless the user asked for it.

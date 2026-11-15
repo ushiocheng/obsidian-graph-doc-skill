@@ -40,6 +40,8 @@ The whole skill is this one file of prose: an agent loads it and follows it. It 
 - Frontmatter uses only `name` and `description`, the fields every Agent Skills host accepts, so the folder works when copied into any agent's skills directory.
 - The script path is given as `${CLAUDE_SKILL_DIR}/scripts/validate.py` for Claude Code; other agents must resolve it relative to the skill folder themselves.
 - The skill must never write `docs/.obsidian/` or the user's instructions file without a yes.
+- Init adds `docs/.obsidian/` to the target repo's `.gitignore`, because [[obsidian]] creates that folder with personal state as soon as the vault is opened.
+- A note cannot record the hash of the commit that contains it, so `verified_commit` is set in a follow-up commit.
 - The scope is deliberately small; see [[minimal-skill-scope]].
 
 ## Notes

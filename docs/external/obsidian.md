@@ -21,6 +21,7 @@ The generated `docs/` folder must open as an Obsidian vault with no plugins inst
 - The core graph view has no link types: no edge labels or filtering by relation.
 - Two notes with the same file name make a bare wikilink ambiguous.
 - GitHub does not render wikilinks in repository files.
+- Opening a folder as a vault creates `.obsidian/` inside it, including `workspace.json` (personal window and tab state). This repo ignores `docs/.obsidian/` in `.gitignore`, and the skill adds the same entry to repos it documents. It was committed here once by `git add -A` and removed before pushing.
 
 ## Related
 

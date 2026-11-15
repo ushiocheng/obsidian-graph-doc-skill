@@ -53,6 +53,8 @@ Ask your agent, inside the repo you want documented:
 - "Document this codebase as an Obsidian vault" to generate `docs/`.
 - "Validate the docs vault" to check it and refresh stale notes.
 
+Then open `docs/` in Obsidian as a vault. Obsidian creates `docs/.obsidian/` with your personal settings and window state when you do; the skill adds that folder to `.gitignore` so it is not committed by accident.
+
 After generating, the skill offers a short block for your `CLAUDE.md` or `AGENTS.md` that tells agents to keep notes current as they change code. It is opt-in.
 
 ## Validator
