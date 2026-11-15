@@ -1,5 +1,8 @@
 # obsidian-graph-doc
 
+> [!Warning]
+> This is preliminary. Use with caution.
+
 An agent skill that documents a codebase as an Obsidian vault.
 
 Point it at a repo and it writes a `docs/` folder of small Markdown notes, one per module or other cohesive unit. Each note has YAML frontmatter and typed links to the notes it relates to (`depends_on`, `part_of`, `see_also` and a few more). Open `docs/` in Obsidian to browse it as a graph, or let a coding agent read the index and only the notes for the area it is changing.
