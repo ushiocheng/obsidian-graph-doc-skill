@@ -7,7 +7,7 @@ sources:
   - skills/obsidian-graph-doc/scripts/validate.py
 depends_on:
   - "[[note-format]]"
-verified_commit: uncommitted
+verified_commit: a43459f
 ---
 
 # Vault validator

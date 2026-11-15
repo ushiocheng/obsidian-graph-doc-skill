@@ -9,7 +9,7 @@ depends_on:
   - "[[note-format]]"
   - "[[note-templates]]"
   - "[[vault-validator]]"
-verified_commit: uncommitted
+verified_commit: a43459f
 ---
 
 # Skill instructions
