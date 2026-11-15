@@ -50,6 +50,7 @@ The skill's instructions are this one file of prose: an agent loads it and follo
 - A stale note that turns out to be correct is cleared by setting its `reviewed` date, since only a commit to the note makes it fresh.
 - The skill assumes docs drift between cross-checks. Drift is recorded in `docs/pending-cross-check.md` and cleaned up later, usually before a deploy, instead of being prevented.
 - Cross-check subagents only report. The main agent edits, so two batches never touch the same note, and it opens the cited code before acting on a `wrong` or `contradiction` finding.
+- `last_cross_check` can only name a commit. So a cross-check starts from committed code, and if it changes code, that is committed before the ledger is updated in a commit of its own.
 - The scope is deliberately small; see [[minimal-skill-scope]].
 
 ## Notes

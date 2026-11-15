@@ -171,7 +171,7 @@ Verifies the notes against the code and against each other, then clears the ledg
    - return one finding per problem: note, the claim, verdict (`wrong`, `missing`, `contradiction`, `unverifiable`), evidence as `path:line`, and a suggested fix. Confirmed claims need no finding; return a count of them.
 4. **Apply the fixes yourself**, not the subagents, so two batches never edit the same note. For a `wrong` or `contradiction` finding, open the cited code before changing the note; a cheaper model's finding is a lead, not a fact. Leave `unverifiable` items as ledger entries.
 5. **Run validate again** until it has no errors.
-6. **Update the ledger**: set `last_cross_check` to the current short `HEAD` hash, delete resolved entries, keep unresolved ones with a note on why.
+6. **Update the ledger**: set `last_cross_check` to the current short `HEAD` hash, delete resolved entries, keep unresolved ones with a note on why. If the cross-check led you to change code as well as notes (a finding can be a bug in the code, not the note), those changes must be committed before this step so the marker names a commit that contains them; the ledger update then goes in its own commit.
 7. **Report**: notes checked, findings by verdict, what was fixed, what remains in the ledger, and any code with no note.
 
 If the scope is more than about 60 notes, tell the user the size and ask whether to check everything or one area first.
